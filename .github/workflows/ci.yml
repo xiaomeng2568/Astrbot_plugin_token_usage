@@ -37,3 +37,16 @@ jobs:
       - run: python scripts/publish_release.py
         env:
           GH_TOKEN: ${{ github.token }}
+      - name: Release标题仅保留版本号
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json, re, subprocess
+          releases = json.loads(subprocess.check_output(['gh', 'release', 'list', '--limit', '100', '--json', 'tagName'], text=True))
+          for release in releases:
+              tag = release['tagName']
+              match = re.match(r'^v\d+\.\d+\.\d+', tag)
+              if match:
+                  subprocess.run(['gh', 'release', 'edit', tag, '--title', match.group()], check=True)
+          PY
