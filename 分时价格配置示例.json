@@ -1,0 +1,67 @@
+{
+  "local_timezone": "Asia/Shanghai",
+  "deepseek_official": true,
+  "deepseek_provider_ids": [],
+  "prices": [
+    {
+      "__template_key": "price",
+      "model": "deepseek-flash",
+      "provider": "",
+      "billing": "api",
+      "currency": "CNY",
+      "input": "2",
+      "cached": "0.04",
+      "output": "8",
+      "period": "deepseek_peak",
+      "name": "DeepSeek 官方·高峰",
+      "timezone": "Asia/Shanghai",
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+      "verified_on": "2026-10-26"
+    },
+    {
+      "__template_key": "price",
+      "model": "deepseek-flash",
+      "provider": "",
+      "billing": "api",
+      "currency": "CNY",
+      "input": "1",
+      "cached": "0.02",
+      "output": "4",
+      "period": "deepseek_offpeak",
+      "name": "DeepSeek 官方·空闲",
+      "timezone": "Asia/Shanghai",
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+      "verified_on": "2026-10-26"
+    },
+    {
+      "__template_key": "price",
+      "model": "deepseek-v4-pro",
+      "provider": "",
+      "billing": "api",
+      "currency": "CNY",
+      "input": "9.0",
+      "cached": "0.30",
+      "output": "27.0",
+      "period": "deepseek_peak",
+      "name": "DeepSeek 官方·高峰",
+      "timezone": "Asia/Shanghai",
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+      "verified_on": "2026-10-26"
+    },
+    {
+      "__template_key": "price",
+      "model": "deepseek-v4-pro",
+      "provider": "",
+      "billing": "api",
+      "currency": "CNY",
+      "input": "4.5",
+      "cached": "0.15",
+      "output": "13.5",
+      "period": "deepseek_offpeak",
+      "name": "DeepSeek 官方·空闲",
+      "timezone": "Asia/Shanghai",
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/",
+      "verified_on": "2026-10-26"
+    }
+  ]
+}

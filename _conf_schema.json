@@ -1,0 +1,216 @@
+{
+  "enabled": {
+    "description": "记录模型用量",
+    "type": "bool",
+    "default": true,
+    "hint": "仅记录返回的用量，不额外调用模型。"
+  },
+  "query_access": {
+    "description": "谁能查询",
+    "type": "string",
+    "options": [
+      "admins",
+      "current_session"
+    ],
+    "labels": [
+      "仅管理员",
+      "成员可查当前会话"
+    ],
+    "default": "admins"
+  },
+  "card": {
+    "description": "发送统计卡片",
+    "type": "bool",
+    "default": true,
+    "hint": "缺少中文字体时自动返回文本。"
+  },
+  "retention_days": {
+    "description": "保留天数",
+    "type": "int",
+    "default": 90,
+    "hint": "累计仅含保留期内记录。"
+  },
+  "max_records": {
+    "description": "记录数量上限",
+    "type": "int",
+    "default": 100000
+  },
+  "prices": {
+    "description": "模型单价",
+    "type": "template_list",
+    "default": [],
+    "hint": "每百万Token；支持同模型不同时间条目。明确的模型配置覆盖内置官方价格；无匹配、相同优先级重叠则费用未知。",
+    "templates": {
+      "price": {
+        "name": "模型价格",
+        "display_item": "model",
+        "items": {
+          "provider": {
+            "description": "提供商ID",
+            "type": "string",
+            "default": "",
+            "hint": "留空匹配任意提供商。"
+          },
+          "model": {
+            "description": "模型名称",
+            "type": "string",
+            "default": "",
+            "hint": "与返回的实际模型名完全一致。"
+          },
+          "billing": {
+            "description": "计费类型",
+            "type": "string",
+            "options": [
+              "api",
+              "subscription",
+              "local"
+            ],
+            "labels": [
+              "API单价估算",
+              "订阅用量",
+              "本地调用"
+            ],
+            "default": "api"
+          },
+          "currency": {
+            "description": "币种",
+            "type": "string",
+            "options": [
+              "CNY",
+              "USD",
+              "EUR"
+            ],
+            "default": "CNY",
+            "condition": {
+              "billing": "api"
+            }
+          },
+          "input": {
+            "description": "缓存未命中输入单价",
+            "type": "string",
+            "default": "",
+            "condition": {
+              "billing": "api"
+            }
+          },
+          "cached": {
+            "description": "缓存命中输入单价",
+            "type": "string",
+            "default": "",
+            "condition": {
+              "billing": "api"
+            }
+          },
+          "write": {
+            "description": "缓存写入单价",
+            "type": "string",
+            "default": "",
+            "hint": "接口单列缓存写入时必填。",
+            "condition": {
+              "billing": "api"
+            }
+          },
+          "output": {
+            "description": "输出单价",
+            "type": "string",
+            "default": "",
+            "condition": {
+              "billing": "api"
+            }
+          },
+          "name": {
+            "description": "计价条目名称",
+            "type": "string",
+            "default": "",
+            "hint": "如工作日上午高峰，随调用保存。"
+          },
+          "period": {
+            "description": "适用时段",
+            "type": "string",
+            "default": "all",
+            "options": [
+              "all",
+              "custom",
+              "deepseek_peak",
+              "deepseek_offpeak"
+            ],
+            "labels": [
+              "全天",
+              "自定义本地时间",
+              "DeepSeek官方高峰",
+              "DeepSeek官方空闲"
+            ]
+          },
+          "timezone": {
+            "description": "条目时区",
+            "type": "string",
+            "default": "",
+            "hint": "留空沿用本地统计时区。官方高峰/空闲条目始终按Asia/Shanghai判定。",
+            "condition": {
+              "period": "custom"
+            }
+          },
+          "start": {
+            "description": "开始时间（含）",
+            "type": "string",
+            "default": "00:00",
+            "hint": "HH:MM，支持跨午夜。",
+            "condition": {
+              "period": "custom"
+            }
+          },
+          "end": {
+            "description": "结束时间（不含）",
+            "type": "string",
+            "default": "00:00",
+            "hint": "HH:MM，与开始相同表示全天。",
+            "condition": {
+              "period": "custom"
+            }
+          },
+          "weekdays": {
+            "description": "每周适用日期",
+            "type": "string",
+            "default": "1,2,3,4,5,6,7",
+            "hint": "1=周一，7=周日；跨午夜按开始当天归属。",
+            "condition": {
+              "period": "custom"
+            }
+          }
+        }
+      }
+    }
+  },
+  "local_timezone": {
+    "description": "本地统计时区",
+    "type": "string",
+    "default": "local",
+    "hint": "local使用运行AstrBot服务器的系统时区；可填Asia/Shanghai。每条记录保留UTC偏移。DeepSeek官方时段固定按北京时间转换。"
+  },
+  "deepseek_official": {
+    "description": "使用DeepSeek官方分时价格",
+    "type": "bool",
+    "default": true,
+    "hint": "内置2026-10-26核对的官方Flash/Pro人民币价格，分别计算缓存命中、未命中和输出。仅适用于官方API；代理自定价请关闭或添加模型单价覆盖。"
+  },
+  "deepseek_provider_ids": {
+    "description": "使用官方价格的提供商ID",
+    "type": "list",
+    "default": [],
+    "hint": "建议填写AstrBot中直连DeepSeek官方的提供商ID；留空匹配内置支持的模型名。"
+  },
+  "deepseek_calendar_years": {
+    "description": "已维护节假日日历的年份",
+    "type": "list",
+    "default": [
+      "2026"
+    ],
+    "hint": "内置2026放假安排。新年份须补全年节假日后再加入；未维护年份的工作日费用保持未知。周末（含调休上班）仍为空闲。"
+  },
+  "deepseek_holidays": {
+    "description": "补充中国节假日日期",
+    "type": "list",
+    "default": [],
+    "hint": "每项YYYY-MM-DD。新年份请补全官方放假日期；这些日期全天按空闲价。"
+  }
+}

@@ -1,0 +1,7 @@
+name: astrbot_plugin_token_usage
+display_name: 模型用量统计
+desc: 按本地接收时间记录Token、缓存与分时费用，支持DeepSeek高峰空闲计价、QQ卡片和OAuth识图上报
+version: v0.1.1
+author: xiaomeng2568
+astrbot_version: ">=4.25.3"
+repo: https://github.com/xiaomeng2568/Astrbot_plugin_token_usage
