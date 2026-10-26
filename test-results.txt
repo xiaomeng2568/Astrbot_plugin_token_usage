@@ -57,6 +57,7 @@ test_provider_allowlist_does_not_price_resellers (test_scheduled_pricing.Schedul
 test_specific_period_overrides_all_day_and_gap_uses_fallback (test_scheduled_pricing.ScheduledPriceTests.test_specific_period_overrides_all_day_and_gap_uses_fallback) ... ok
 test_subscription_and_unknown_cache_are_not_priced (test_scheduled_pricing.ScheduledPriceTests.test_subscription_and_unknown_cache_are_not_priced) ... ok
 test_unknown_future_calendar_is_not_silently_priced (test_scheduled_pricing.ScheduledPriceTests.test_unknown_future_calendar_is_not_silently_priced) ... ok
+test_utc_does_not_require_external_timezone_database (test_scheduled_pricing.ScheduledPriceTests.test_utc_does_not_require_external_timezone_database) ... ok
 test_weekday_holiday_is_offpeak (test_scheduled_pricing.ScheduledPriceTests.test_weekday_holiday_is_offpeak) ... ok
 test_weekend_including_adjusted_working_saturday_is_offpeak (test_scheduled_pricing.ScheduledPriceTests.test_weekend_including_adjusted_working_saturday_is_offpeak) ... ok
 test_delay_uses_receipt_timestamp_and_snapshots_survive_price_changes (test_scheduled_pricing.ScheduledStorageTests.test_delay_uses_receipt_timestamp_and_snapshots_survive_price_changes) ... ok
@@ -65,6 +66,6 @@ test_reporting_day_can_use_utc_instead_of_beijing (test_scheduled_pricing.Schedu
 test_stream_timestamp_is_final_usage_arrival_not_generator_close (test_scheduled_pricing.StreamArrivalTests.test_stream_timestamp_is_final_usage_arrival_not_generator_close) ... ok
 
 ----------------------------------------------------------------------
-Ran 65 tests in 0.827s
+Ran 66 tests in 1.566s
 
 OK

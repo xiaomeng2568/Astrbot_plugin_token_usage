@@ -16,6 +16,8 @@ def local_datetime(timestamp, name='local'):
         return datetime.fromtimestamp(timestamp).astimezone()
     if name == 'Asia/Shanghai':
         return datetime.fromtimestamp(timestamp, SHANGHAI)
+    if name in {'UTC', 'Etc/UTC', 'GMT'}:
+        return datetime.fromtimestamp(timestamp, timezone.utc)
     return datetime.fromtimestamp(timestamp, ZoneInfo(name))
 
 

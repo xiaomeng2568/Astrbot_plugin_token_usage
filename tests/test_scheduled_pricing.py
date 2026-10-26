@@ -18,6 +18,12 @@ def ts(day='2026-10-26', clock='09:00'):
 
 
 class ScheduledPriceTests(unittest.TestCase):
+    def test_utc_does_not_require_external_timezone_database(self):
+        from unittest.mock import patch
+        from meter.schedule import local_datetime
+        with patch('meter.schedule.ZoneInfo', side_effect=KeyError('No tzdata')):
+            self.assertEqual(local_datetime(ts(), 'UTC').utcoffset().total_seconds(), 0)
+
     def official(self, clock='09:00', model='deepseek-flash', day='2026-10-26', **options):
         return estimate(Usage(1000000, 1000000, 800000), 'unknown', 'official', model, [],
                         ts(day, clock), 'Asia/Shanghai', dict(deepseek_official=True, **options))
